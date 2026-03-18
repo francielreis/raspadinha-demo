@@ -1,5 +1,6 @@
 from flask import Flask
 import random
+import os
 
 app = Flask(__name__)
 
@@ -15,11 +16,12 @@ PREMIOS = [
 def sorteio_premio():
     rotulos = [p[0] for p in PREMIOS]
     pesos = [p[1] for p in PREMIOS]
-    return random.choices(rotulos, weights=pesos, k=1)[0]
+    return random.choices(rotulos, weights=pesos)[0]
 
 @app.route("/")
 def home():
     return "Sistema de raspadinha online 🚀"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
