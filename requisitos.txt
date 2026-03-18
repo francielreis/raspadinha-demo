@@ -1,1 +1,1 @@
-F l a s k
+Flask==2.3.2
