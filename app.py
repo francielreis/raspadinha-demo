@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask
 import random
 
 app = Flask(__name__)
 
-PRIZES = [
+PREMIOS = [
     ("R$ 0", 60),
     ("R$ 2", 18),
     ("R$ 5", 12),
@@ -12,24 +12,15 @@ PRIZES = [
     ("R$ 50", 1),
 ]
 
-def draw_prize():
-    labels = [p[0] for p in PRIZES]
-    weights = [p[1] for p in PRIZES]
-    return random.choices(labels, weights=weights, k=1)[0]
+def sorteio_premio():
+    rotulos = [p[0] for p in PREMIOS]
+    pesos = [p[1] for p in PREMIOS]
+    return random.choices(rotulos, weights=pesos, k=1)[0]
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
-    return render_template("index.html")
-
-@app.route("/raspar", methods=["POST"])
-def raspar():
-    premio = draw_prize()
-    return redirect(url_for("resultado", premio=premio))
-
-@app.route("/resultado")
-def resultado():
-    premio = request.args.get("premio", "R$ 0")
-    return render_template("resultado.html", premio=premio)
+    return "Sistema de raspadinha online 🚀"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=10000)
+``
