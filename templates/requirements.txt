@@ -1,0 +1,20 @@
+from flask import Flask, render_template, jsonify
+import random
+
+app = Flask(__name__)
+
+saldo = 100
+
+@app.route("/")
+def home():
+    return render_template("index.html", saldo=saldo)
+
+@app.route("/raspar", methods=["POST"])
+def raspar():
+    global saldo
+    premio = random.choice([0, 5, 10, 20])
+    saldo += premio
+    return jsonify({"premio": premio, "saldo": saldo})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
